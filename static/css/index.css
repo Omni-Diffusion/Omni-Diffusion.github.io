@@ -1,5 +1,9 @@
 body {
   font-family: 'Noto Sans', sans-serif;
+  font-size: 18px; /* 大小 */
+  line-height: 1.5; /* 行间距 */
+  margin: 40px; /* 外边距 */
+  padding: 20px; /* 内边距 */
 }
 
 

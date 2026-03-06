@@ -51,8 +51,6 @@
           <h1 class="title is-1 publication-title">Omni-Diffusion: Unified Multimodal Understanding and Generation with Masked Discrete Diffusion</h1>
           <!-- <div class="is-size-5 publication-authors">
             <span class="author-block">
-              Omni-Diffusion Team <sup>1</sup>,</span>
-            <span class="author-block">
               <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
             <span class="author-block">
               <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
@@ -69,12 +67,35 @@
             <span class="author-block">
               <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
             </span>
-          </div> -->
+          </div>
+           -->
+           <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Lijiang Li<sup>1</sup>,</span>
+            <span class="author-block">
+              Zuwei Long<sup>2</sup>,</span>
+            <span class="author-block">
+              Yunhang Shen<sup>2</sup>,</span>
+            <span class="author-block">
+              Heting Gao<sup>2</sup>,</span>
+            <span class="author-block">
+              Haoyu Cao<sup>2</sup>,</span>
+            <span class="author-block">
+              Xing Sun<sup>2</sup>,</span>
+            <span class="author-block">
+              Caifeng Shan<sup>1</sup>,</span>
+            <span class="author-block">
+              Ran He<sup>3</sup>,</span>
+            <span class="author-block">
+              Chaoyou Fu<sup>1, †</sup>,</span>
+          </div>
 
-          <!-- <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
-          </div> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Nanjing University,</span>
+            <span class="author-block"><sup>2</sup>Tencent Youtu Lab,</span>
+            <span class="author-block"><sup>3</sup>CASIA,</span>
+            <span class="author-block"><sup>†</sup>Corresponding author</span>
+          </div>
 
           <!-- <div class="is-size-4 publication-authors">
             <p>
@@ -87,7 +108,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2405.21075"
+                <a href="https://omni-diffusion.github.io/"
                    class="external-link button is-normal is-rounded is-dark">
                 <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
                    class="external-link button is-normal is-rounded is-dark"> -->
@@ -99,7 +120,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/MME-Benchmarks/Video-MME"
+                <a href="https://github.com/VITA-MLLM/Omni-Diffusion"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -107,6 +128,24 @@
                   <span>GitHub</span>
                   </a>
               </span>
+
+              <span class="link-block">
+                <a
+                    href="https://huggingface.co/lijiang/Omni-Diffusion"
+                    target="_blank"
+                    class="external-link button is-normal is-rounded is-dark"
+                >
+                    <span class="icon">🤗</span>
+                    <span>Model</span>
+                </a>
+            </span>
+
+            <br><br>
+
+              <p style="text-align: center; margin-top: 20px; font-size: 24px;">
+                <strong>TL;DR:</strong> <span style="color: #000000;">We introduce <strong>Omni-Diffusion</strong>, the first any-to-any multimodal language model built entirely on mask-based discrete diffusion models.
+                </span>
+            </p>
 
             </div>
           </div>
@@ -117,52 +156,31 @@
   </div>
 </section>
 
-
-<section class="section">
-  <div class="container" style="margin-bottom: 2vh;">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Introduction</h2>
-
-        <div class="content has-text-justified">
-                <br>
-                <p>
-                    While recent multimodal large language models (MLLMs) have made impressive strides, they mostly employ a conventional autoregressive architecture as their backbone, leaving significant room for exploring effective and efficient alternatives in architectural design. We introduce <strong>Omni-Diffusion</strong>, the first any-to-any multimodal language model built entirely on mask-based discrete diffusion models, which unifies understanding and generation across text, speech, and images. Omni-Diffusion employs a unified mask-based discrete diffusion model to directly capture the joint distribution over discrete multimodal tokens. This approach enables support for not only bimodal tasks but also more complex scenarios involving multiple modalities. Our main contribusions are:
-                </p>
-                <p>
-                <ul>
-                    <li>
-                        <b>First Any-to-Any Mask-based Discrete Diffusion Model.</b>
-                        Omni-Diffusion is the pioneering any-to-any multimodal language model constructed purely using mask-based discrete diffusion model. It demonstrates robust performance on various tasks involving multiple modalities, illustrating the potential of discrete diffusion model in multimodal intelligence systems. 
-
-                    </li>
-                    <li>
-                        <b>Diffusion-Centric Training and Inference Framework.</b>
-                        We develop specialized training and inference techniques tailored to the characteristic of mask-based diffusion models. For training, we implement an attenuated tail-pad masking strategy to facilitate variable-length generation and a three-stage progressive training pipeline for effective multi-modality alignment. For inference, we introduce position penalty to constrain generation order and enhance visual quality, alongside a special token pre-infilling strategy to improve spoken dialogue performance.
-                    </li>
-                </ul>
-                </p>
-                <br>
-
-                <img class="columns is-centered has-text-centered" src="./static/images/teaser.png" alt="Teaser" width="90%"
-                        style="margin:0 auto">
-                <br>
+<section class="hero is-small">
+    <div class="hero-body">
+        <div
+            class="container"
+            style="
+                display: flex;
+                justify-content: center;
+                gap: 1px;
+            "
+        >
+            <div class="item" style="text-align: center">
+                <img
+                    src="static/images/teaser.png"
+                    alt="Teaser"
+                    style="width: 80%; max-width: 1000px;"
+                />
                 <figcaption>
                     <p style="text-align: center; color: #061E61;">
                         <b>Figure 1:</b> Overview of Omni-Diffusion.
                     </p>
                 </figcaption>
             </div>
-            <br/>
-
         </div>
-      </div>
     </div>
-    <!--/ Abstract. -->
-</div>
 </section>
-
 
 <section class="section">
     <div class="container is-max-desktop">
@@ -509,30 +527,160 @@
     </div>
 </section>
 
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+
+        <div class="content has-text-justified">
+                <br>
+                <p>
+                    While recent multimodal large language models (MLLMs) have made impressive strides, they mostly employ a conventional autoregressive architecture as their backbone, leaving significant room for exploring effective and efficient alternatives in architectural design. We introduce <strong>Omni-Diffusion</strong>, the first any-to-any multimodal language model built entirely on mask-based discrete diffusion models, which unifies understanding and generation across text, speech, and images. Omni-Diffusion employs a unified mask-based discrete diffusion model to directly capture the joint distribution over discrete multimodal tokens. This approach enables support for not only bimodal tasks but also more complex scenarios involving multiple modalities. Our main contribusions are:
+                </p>
+                <p>
+                <ul>
+                    <li>
+                        <b>First Any-to-Any Mask-based Discrete Diffusion Model.</b>
+                        Omni-Diffusion is the pioneering any-to-any multimodal language model constructed purely using mask-based discrete diffusion model. It demonstrates robust performance on various tasks involving multiple modalities, illustrating the potential of discrete diffusion model in multimodal intelligence systems. 
+
+                    </li>
+                    <li>
+                        <b>Diffusion-Centric Training and Inference Framework.</b>
+                        We develop specialized training and inference techniques tailored to the characteristic of mask-based diffusion models. For training, we implement an attenuated tail-pad masking strategy to facilitate variable-length generation and a three-stage progressive training pipeline for effective multi-modality alignment. For inference, we introduce position penalty to constrain generation order and enhance visual quality, alongside a special token pre-infilling strategy to improve spoken dialogue performance.
+                    </li>
+                </ul>
+                </p>
+                <br>
+
+                <!-- <img class="columns is-centered has-text-centered" src="./static/images/teaser.png" alt="Teaser" width="90%"
+                        style="margin:0 auto">
+                <br>
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Figure 1:</b> Overview of Omni-Diffusion.
+                    </p>
+                </figcaption> -->
+            </div>
+            <br/>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Methodology. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Methodology</h2>
+            <br/>
+            <h3 style="text-align: left;" class="title is-4">1. Training</h3>
+            <div class="columns is-centered">
+            <div class="column is-full-width">
+                <div class="content has-text-justified">
+                        <!-- <p>
+                            Omni-Diffusion is built upon a mask-based discrete diffusion language model and is equipped with distinct tokenizers for data of various modalities.
+                        </p> -->
+                        <p>
+                        <ul>
+                            <li>
+                                <b>Three-Stage Progressive Training Pipeline.</b>
+                                We propose a <strong>three-stage training pipeline</strong> to progressively expands the set of modalities and tasks throughout the training process, which ensures stability when training a unified model on data distributions with distinct characteristics.
+                                To further improve the model’s ability for visual interaction via spoken instruction, we construct a <strong>Speech-Driven Visual Interaction</strong> (SDVI) dataset that mainly includes spoken visual question answering and speech-to-image generation data.
+
+                            </li>
+                                
+                            <li>
+                                <b>Attenuated Tail-Pad Masking.</b>
+                                To facilitate variable-length generation, we propose <strong>attenuated tail-pad masking</strong> strategy. During training, we append a random number of pad tokens to the end of each data sample. The mask ratio of pad token is specifically reduced by a pre-difined scaling factor for mitigating overfitting and improving generation quality
+                            </li>
+                        </ul>
+                        </p>
+                        <br>
+
+                        <p>
+                        <!-- <ul>
+                            <li> -->
+
+                            <!-- </li>
+                            <li> -->
+                                <!-- <b>Attenuated Tail-Pad Masking.</b>
+                                To facilitate variable-length generation, we propose <strong>attenuated tail-pad masking</strong> strategy. During training, we append a random number of pad tokens to the end of each data sample. The mask ratio of pad token is specifically reduced by a pre-difined scaling factor for mitigating overfitting and improving generation quality -->
+                            <!-- </li>
+                        </ul> -->
+                        </p>
+
+                </div>
+            </div>
+            </div>
+
+            <h3 style="text-align: left;" class="title is-4">2. Inference</h3>
+            <div class="columns is-centered">
+            <div class="column is-full-width">
+                <div class="content has-text-justified">
+                        <!-- <p>
+                            Omni-Diffusion is built upon a mask-based discrete diffusion language model and is equipped with distinct tokenizers for data of various modalities.
+                        </p> -->
+                        <p>
+                        <ul>
+                            <li>
+                                <b>Visual Generation Quality Improvement.</b>
+                                The diffusion model tends to decode mask tokens from the beginning and the end of the sequence towards the center, which lead to identical patterns appearing in the top and bottom regions of the generated image. To solve this issue, We propose the <strong>position penalty strategy</strong> to scale down the logits of the last several tokens by a fixed factor. This strategy discourages the model from decoding the beginning and end of the sequence simultaneously, therefore reducing repetitive patterns and improve visual quality. 
+                            </li>
+                            <li>
+                                <b>Speech Generation Quality Improvement.</b>
+                                We propose <strong>special token pre-infilling</strong> trategy, which replaces the token located at the one-fourth point of the sequence length in the initial token sequencewith a special token [begin-of-speech]. This method guides the model to attend to text content when generating speech response, thereby improving the logic and coherence of the synthesized speech. 
+                            </li>
+                        </ul>
+                        </p>
+                        <br>
+
+                        <p>
+                        <!-- <ul>
+                            <li> -->
+
+                            <!-- </li>
+                            <li> -->
+                                
+                            <!-- </li>
+                        </ul> -->
+                        </p>
+                        <br>
+
+                </div>
+                <br/>
+            </div> 
+            </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
 
 <section class="section">
   <div class="container" style="margin-bottom: 2vh;">
     <!-- Exps. -->
+    
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Experimental Results</h2>
+        <h2 class="title is-3">Performance</h2>
 
         <div class="content has-text-justified">
-                <figcaption>
-                    <p style="text-align: center; color: #061E61;">
-                        <b>Table 2:</b> Model Performance on ASR and TTS tasks.
-                    </p>
-                </figcaption>
-                <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="40%"
-                        style="margin:0 auto">
-                <br>
+            <p>
+                Omni-Diffusion demonstrates comparable performance on various task compared with model-specifical LLMs, and shows significant improvement over the any-to-any baseline models.
+            </p>
         </div>
-        <br/>
 
         <div class="content has-text-justified">
                 <figcaption>
                     <p style="text-align: center; color: #061E61;">
-                        <b>Table 3:</b> Model Performance on visual-question-answering and text-to-image tasks.
+                        <b>Table 3:</b> Performance on visual-question-answering and text-to-image tasks.
                     </p>
                 </figcaption>
                 <img class="columns is-centered has-text-centered" src="./static/images/visual_task.png" alt="Teaser" width="80%"
@@ -540,17 +688,43 @@
                 <br>
         </div>
         <br/>
+                    
+        <div class="columns is-variable is-4"> <!-- is-variable is-4 用于增加两列之间的间距 -->
+            <div class="column is-half">
+                <div class="content has-text-justified">
+                        <figcaption>
+                            <p style="text-align: center; color: #061E61;">
+                                <b>Table 2:</b> Performance on ASR and TTS tasks.
+                            </p>
+                        </figcaption>
+                        <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="90%"
+                                style="margin:0 auto">
+                        <br>
+                </div>
+            </div>
+        
 
-        <div class="content has-text-justified">
-                <figcaption>
-                    <p style="text-align: center; color: #061E61;">
-                        <b>Table 4:</b> Model Performance of image generation and TTS across various numbers of inference time steps.  Metrics: CLIP-T/CLIP-I(↑) for image generation and WER (↓) for TTS. 
-                    </p>
-                </figcaption>
-                <img class="columns is-centered has-text-centered" src="./static/images/fast_inference.png" alt="Teaser" width="40%"
-                        style="margin:0 auto">
-                <br>
+
+            <div class="column is-half">
+                <div class="content has-text-justified">
+                    <figcaption>
+                        <p style="text-align: center; color: #061E61;">
+                            <b>Table 4:</b> Performance of image generation and TTS across various numbers of inference time steps.  Metrics: CLIP-T/CLIP-I(↑) for image generation and WER (↓) for TTS. 
+                        </p>
+                    </figcaption>
+                    <img class="columns is-centered has-text-centered" src="./static/images/fast_inference.png" alt="Teaser" width="90%"
+                            style="margin:0 auto">
+                    <br>
+            </div>
+            </div>
+           
         </div>
+        <!-- columns 结束 -->
+
+        
+        <br/>
+
+        
         <br/>
 
         </div>
