@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="Omni-Diffusion: Unified Multimodal Understanding and Generation with Masked Discrete Diffusion">
+    <meta name="keywords" content="Discrete Diffusion Model, Large Language Model">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Omni-Diffusion</title> 
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+    <!-- <link rel="icon" href="./static/images/logo.png"> -->
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <link rel="stylesheet" href="./static/css/index-gradio.css">
+    <link rel="stylesheet" href="./static/css/live_theme.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <!-- <script src="./static/js/index.js"></script> -->
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Omni-Diffusion: Unified Multimodal Understanding and Generation with Masked Discrete Diffusion</h1>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Omni-Diffusion Team <sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+            </span>
+          </div> -->
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Washington,</span>
+            <span class="author-block"><sup>2</sup>Google Research</span>
+          </div> -->
+
+          <!-- <div class="is-size-4 publication-authors">
+            <p>
+                We propose Omni-Diffusion, the first any-to-any multimodal language model <br />
+                built purely on mask-based discrete diffusion models.
+            </p>
+            </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2405.21075"
+                   class="external-link button is-normal is-rounded is-dark">
+                <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/MME-Benchmarks/Video-MME"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>GitHub</span>
+                  </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+
+        <div class="content has-text-justified">
+                <br>
+                <p>
+                    While recent multimodal large language models (MLLMs) have made impressive strides, they mostly employ a conventional autoregressive architecture as their backbone, leaving significant room for exploring effective and efficient alternatives in architectural design. We introduce <strong>Omni-Diffusion</strong>, the first any-to-any multimodal language model built entirely on mask-based discrete diffusion models, which unifies understanding and generation across text, speech, and images. Omni-Diffusion employs a unified mask-based discrete diffusion model to directly capture the joint distribution over discrete multimodal tokens. This approach enables support for not only bimodal tasks but also more complex scenarios involving multiple modalities. Our main contribusions are:
+                </p>
+                <p>
+                <ul>
+                    <li>
+                        <b>First Any-to-Any Mask-based Discrete Diffusion Model.</b>
+                        Omni-Diffusion is the pioneering any-to-any multimodal language model constructed purely using mask-based discrete diffusion model. It demonstrates robust performance on various tasks involving multiple modalities, illustrating the potential of discrete diffusion model in multimodal intelligence systems. 
+
+                    </li>
+                    <li>
+                        <b>Diffusion-Centric Training and Inference Framework.</b>
+                        We develop specialized training and inference techniques tailored to the characteristic of mask-based diffusion models. For training, we implement an attenuated tail-pad masking strategy to facilitate variable-length generation and a three-stage progressive training pipeline for effective multi-modality alignment. For inference, we introduce position penalty to constrain generation order and enhance visual quality, alongside a special token pre-infilling strategy to improve spoken dialogue performance.
+                    </li>
+                </ul>
+                </p>
+                <br>
+
+                <img class="columns is-centered has-text-centered" src="./static/images/teaser.png" alt="Teaser" width="90%"
+                        style="margin:0 auto">
+                <br>
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Figure 1:</b> Overview of Omni-Diffusion.
+                    </p>
+                </figcaption>
+            </div>
+            <br/>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-2">Examples</h2>
+            <br>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                
+                <br/>
+                <!--  Example-1-->
+                <h3 class="title is-4">• Example-1: Speech+Image → Speech</h3>
+                <div class="content has-text-justified">
+                    
+                    <div class="wrapper svelte-nab2ao"
+                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p><audio playsinline="" controls="">
+                                            <source type="audio/wav" src="./static/images/demo2/svqa_2.wav"></audio>
+                                        </p>
+                                        <img style="display: inline-block;width: 100%;max-height: 400px;" src="./static/images/demo2/svqa_2.png">
+                                        <p>(Text Transcription: What color is the bench?)</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <p><audio playsinline="" controls="">
+                                                  <source type="audio/wav" src="./static/images/demo2/svqa_ans_2.wav"></audio>
+                                      </p>
+                                      <p>(Text Transcription: The bench is made of wood with a reddish-brown finish. It has horizontal slats, and the appearance to be old.)</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>
+                    </p>
+
+                    <div class="wrapper svelte-nab2ao"
+                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p><audio playsinline="" controls="">
+                                            <source type="audio/wav" src="./static/images/demo1/svqa_1.wav"></audio>
+                                        </p>
+                                        <img style="display: inline-block;width: 100%;max-height: 400px;" src="./static/images/demo1/svqa_1.jpg">
+                                        <p>(Text Transcription: What game is this?)</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <p><audio playsinline="" controls="">
+                                                  <source type="audio/wav" src="./static/images/demo1/svqa_1_ans.wav"></audio>
+                                      </p>
+                                      <p>(Text Transcription: Tennis. The players are holding tennis rackets, and one of them is in motion, appearing to hit the ball.)</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <!--   End  Example-1-->
+
+
+                <br/>
+                <!--   Example-2-->
+                <h3 class="title is-4">• Example-2: Speech → Image</h3>
+                <div class="content has-text-justified">
+
+                    <div class="wrapper svelte-nab2ao"
+                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p><audio playsinline="" controls="">
+                                            <source type="audio/wav" src="./static/images/demo4/s2i_0.wav"></audio>
+                                        </p>
+                                        <p>(Text Transcription: Generate an image based on the provided text description. A super realistic and hyper-detailed 8k image showing a fantasy night scene with an amazing beach under the full moon, lit by dramatic lighting.)</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_0.png" >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p></p>
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p><audio playsinline="" controls="">
+                                            <source type="audio/wav" src="./static/images/demo4/s2i_1.wav"></audio>
+                                        </p>
+                                        <p>(Text Transcription: Generate an image based on the provided text description. This image shows misty blue mountains and trees in a watercolor style, with a pacific northwest look.)</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_1.png" >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p></p>
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p><audio playsinline="" controls="">
+                                            <source type="audio/wav" src="./static/images/demo4/s2i_2.wav"></audio>
+                                        </p>
+                                        <p>(Text Transcription: Generate an image based on the provided text description. A photorealistic picture of a Yellowstone grass and sagebrush meadow with a pine forest in the distance, surrounded by big mountains. Rays of sunshine break through the sky, creating a warm glow on the lively landscape. Distant rainclouds suggest the possibility of rainfall in the peaceful scene.)</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_2.png" >
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  End  Example-2-->
+
+
+                <br/>
+                <!--   Example-3-->
+                <h3 class="title is-4">• Example-3: Text+Image → Text</h3>
+                <div class="content has-text-justified">
+
+                    <div class="wrapper svelte-nab2ao"
+                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p>Is the glass of orange juice half empty or half full?
+                                        <br/><br/>
+                                        <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_1.png" >
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <p>The glass of orange juice is half full. The liquid level is at about two-thirds of the glass, leaving the other one-third empty. Since the question asks is it half empty or half full, the glass is half full.
+                                      </p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p></p>
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p>Is this taken at a zoo?
+                                        <br/><br/>
+                                        <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_0.jpg" >
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <p>No, it is taken at a park. 
+                                      </p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  End  Example-3-->
+
+
+                <br/>
+                <!--   Example-4-->
+                <h3 class="title is-4">• Example-4: Text → Image</h3>
+                <div class="content has-text-justified">
+
+                    <div class="wrapper svelte-nab2ao"
+                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+
+                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p>Generate an image based on the provided text description.</p>
+                                        <p>The image shows a landscape background with double exposure glasses of wine, displaying a hyperealistic and detailed view of the subject.</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_0.png" >
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p></p>
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p>Generate an image based on the provided text description.</p>
+                                        <p>A hyper-realistic, ultra-detailed picture of a Christian country church lit by a bright, snowy atmosphere.</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_1.png" >
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                        <p>Generate an image based on the provided text description.</p>
+                                        <p>An image of America's mountains mixed with a grand royal male eagle in double exposure, with dripping red and blue colors.</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="message-row bot-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot">
+                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_2.png" >
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--  End  Example-4-->
+
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Exps. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experimental Results</h2>
+
+        <div class="content has-text-justified">
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Table 2:</b> Model Performance on ASR and TTS tasks.
+                    </p>
+                </figcaption>
+                <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="40%"
+                        style="margin:0 auto">
+                <br>
+        </div>
+        <br/>
+
+        <div class="content has-text-justified">
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Table 3:</b> Model Performance on visual-question-answering and text-to-image tasks.
+                    </p>
+                </figcaption>
+                <img class="columns is-centered has-text-centered" src="./static/images/visual_task.png" alt="Teaser" width="80%"
+                        style="margin:0 auto">
+                <br>
+        </div>
+        <br/>
+
+        <div class="content has-text-justified">
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Table 4:</b> Model Performance of image generation and TTS across various numbers of inference time steps.  Metrics: CLIP-T/CLIP-I(↑) for image generation and WER (↓) for TTS. 
+                    </p>
+                </figcaption>
+                <img class="columns is-centered has-text-centered" src="./static/images/fast_inference.png" alt="Teaser" width="40%"
+                        style="margin:0 auto">
+                <br>
+        </div>
+        <br/>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Exps. -->
+</div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p style="text-align: center;">
+                        The webpage is built based on <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
