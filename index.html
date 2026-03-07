@@ -552,16 +552,6 @@
                     </li>
                 </ul>
                 </p>
-                <br>
-
-                <!-- <img class="columns is-centered has-text-centered" src="./static/images/teaser.png" alt="Teaser" width="90%"
-                        style="margin:0 auto">
-                <br>
-                <figcaption>
-                    <p style="text-align: center; color: #061E61;">
-                        <b>Figure 1:</b> Overview of Omni-Diffusion.
-                    </p>
-                </figcaption> -->
             </div>
             <br/>
 
@@ -591,30 +581,18 @@
                         <ul>
                             <li>
                                 <b>Three-Stage Progressive Training Pipeline.</b>
-                                We propose a <strong>three-stage training pipeline</strong> to progressively expands the set of modalities and tasks throughout the training process, which ensures stability when training a unified model on data distributions with distinct characteristics.
-                                To further improve the model’s ability for visual interaction via spoken instruction, we construct a <strong>Speech-Driven Visual Interaction</strong> (SDVI) dataset that mainly includes spoken visual question answering and speech-to-image generation data.
+                                We propose a <strong>three-stage training pipeline</strong> to progressively expand the set of modalities and tasks throughout the training process. This approach ensures stability when training a unified model on data distributions with distinct characteristics.
+                                To further improve the model’s ability for visual interaction via spoken instruction, we construct a <strong>Speech-Driven Visual Interaction</strong> (SDVI) dataset that primarily includes spoken visual question answering and speech-to-image generation data.
 
                             </li>
                                 
                             <li>
                                 <b>Attenuated Tail-Pad Masking.</b>
-                                To facilitate variable-length generation, we propose <strong>attenuated tail-pad masking</strong> strategy. During training, we append a random number of pad tokens to the end of each data sample. The mask ratio of pad token is specifically reduced by a pre-difined scaling factor for mitigating overfitting and improving generation quality
+                                To facilitate variable-length generation, we propose an <strong>attenuated tail-pad masking</strong> strategy. During training, we append a random number of pad tokens to the end of each data sample. The mask ratio of pad tokens is specifically reduced by a pre-defined scaling factor to mitigate overfitting and improve generation quality
                             </li>
                         </ul>
                         </p>
                         <br>
-
-                        <p>
-                        <!-- <ul>
-                            <li> -->
-
-                            <!-- </li>
-                            <li> -->
-                                <!-- <b>Attenuated Tail-Pad Masking.</b>
-                                To facilitate variable-length generation, we propose <strong>attenuated tail-pad masking</strong> strategy. During training, we append a random number of pad tokens to the end of each data sample. The mask ratio of pad token is specifically reduced by a pre-difined scaling factor for mitigating overfitting and improving generation quality -->
-                            <!-- </li>
-                        </ul> -->
-                        </p>
 
                 </div>
             </div>
@@ -624,37 +602,20 @@
             <div class="columns is-centered">
             <div class="column is-full-width">
                 <div class="content has-text-justified">
-                        <!-- <p>
-                            Omni-Diffusion is built upon a mask-based discrete diffusion language model and is equipped with distinct tokenizers for data of various modalities.
-                        </p> -->
                         <p>
                         <ul>
                             <li>
                                 <b>Visual Generation Quality Improvement.</b>
-                                The diffusion model tends to decode mask tokens from the beginning and the end of the sequence towards the center, which lead to identical patterns appearing in the top and bottom regions of the generated image. To solve this issue, We propose the <strong>position penalty strategy</strong> to scale down the logits of the last several tokens by a fixed factor. This strategy discourages the model from decoding the beginning and end of the sequence simultaneously, therefore reducing repetitive patterns and improve visual quality. 
+                                The diffusion model tends to decode mask tokens from the beginning and the end of the sequence towards the center, which leads to identical patterns appearing in the top and bottom regions of the generated image. To address this issue, we propose the <strong>position penalty strategy</strong> to scale down the logits of the last several tokens by a fixed factor. This strategy discourages the model from decoding the beginning and end of the sequence simultaneously, therefore reducing repetitive patterns and improving visual quality. 
                             </li>
                             <li>
                                 <b>Speech Generation Quality Improvement.</b>
-                                We propose <strong>special token pre-infilling</strong> trategy, which replaces the token located at the one-fourth point of the sequence length in the initial token sequencewith a special token [begin-of-speech]. This method guides the model to attend to text content when generating speech response, thereby improving the logic and coherence of the synthesized speech. 
+                                We propose a <strong>special token pre-infilling</strong> strategy that replaces the token at the first quarter of the initial sequence with a special token [begin-of-speech]. This method guides the model to attend to text content when generating speech response, thereby improving the logic and coherence of the synthesized speech. 
                             </li>
                         </ul>
                         </p>
                         <br>
-
-                        <p>
-                        <!-- <ul>
-                            <li> -->
-
-                            <!-- </li>
-                            <li> -->
-                                
-                            <!-- </li>
-                        </ul> -->
-                        </p>
-                        <br>
-
                 </div>
-                <br/>
             </div> 
             </div>
     </div>
@@ -680,7 +641,7 @@
         <div class="content has-text-justified">
                 <figcaption>
                     <p style="text-align: center; color: #061E61;">
-                        <b>Table 3:</b> Performance on visual-question-answering and text-to-image tasks.
+                        <b>Table 2:</b> Performance on visual-question-answering and text-to-image tasks.
                     </p>
                 </figcaption>
                 <img class="columns is-centered has-text-centered" src="./static/images/visual_task.png" alt="Teaser" width="80%"
@@ -688,43 +649,31 @@
                 <br>
         </div>
         <br/>
-                    
-        <div class="columns is-variable is-4"> <!-- is-variable is-4 用于增加两列之间的间距 -->
-            <div class="column is-half">
-                <div class="content has-text-justified">
-                        <figcaption>
-                            <p style="text-align: center; color: #061E61;">
-                                <b>Table 2:</b> Performance on ASR and TTS tasks.
-                            </p>
-                        </figcaption>
-                        <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="90%"
-                                style="margin:0 auto">
-                        <br>
-                </div>
-            </div>
-        
 
-
-            <div class="column is-half">
-                <div class="content has-text-justified">
-                    <figcaption>
-                        <p style="text-align: center; color: #061E61;">
-                            <b>Table 4:</b> Performance of image generation and TTS across various numbers of inference time steps.  Metrics: CLIP-T/CLIP-I(↑) for image generation and WER (↓) for TTS. 
-                        </p>
-                    </figcaption>
-                    <img class="columns is-centered has-text-centered" src="./static/images/fast_inference.png" alt="Teaser" width="90%"
-                            style="margin:0 auto">
-                    <br>
-            </div>
-            </div>
-           
+        <div class="content has-text-justified">
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Table 3:</b> Performance on ASR and TTS tasks.
+                    </p>
+                </figcaption>
+                <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="40%"
+                        style="margin:0 auto">
+                <br>
         </div>
-        <!-- columns 结束 -->
+                    
+        <div class="content has-text-justified">
+                <figcaption>
+                    <p style="text-align: center; color: #061E61;">
+                        <b>Table 4:</b> Performance of image generation across various numbers of inference time steps.
+                    </p>
+                </figcaption>
+                <img class="columns is-centered has-text-centered" src="./static/images/fast_inference.png" alt="Teaser" width="40%"
+                        style="margin:0 auto">
+                <br>
+        </div>
 
         
         <br/>
-
-        
         <br/>
 
         </div>
