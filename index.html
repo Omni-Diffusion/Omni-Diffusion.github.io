@@ -43,84 +43,97 @@
 <body>
 
 
-<!-- 引入轮播图所需的自定义样式 -->
 <style>
-    /* 轮播图外层容器，使用 Flexbox 让按钮和内容水平排列 */
-    .carousel-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    /* 左右切换按钮样式 */
     .carousel-btn {
-        background-color: #f8f9fa;
-        border: 2px solid #e9ecef;
+        background-color: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        color: #495057;
+        width: 40px;
+        height: 40px;
         cursor: pointer;
+        font-size: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        flex-shrink: 0; /* 防止按钮被压缩 */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-
     .carousel-btn:hover {
-        background-color: #e9ecef;
-        border-color: #ced4da;
+        background-color: rgba(0, 0, 0, 0.15);
     }
-
-    /* 内容区域，占据剩余空间 */
-    .carousel-content-wrapper {
-        flex-grow: 1;
-        overflow: hidden;
-        max-width: 800px; /* 可根据你的页面宽度调整 */
-    }
-
-    /* 幻灯片默认隐藏，添加淡入动画 */
-    .carousel-slide {
-        display: none;
-        animation: fadeEffect 0.5s;
-    }
-
-    /* 底部指示点容器 */
     .carousel-dots {
         text-align: center;
-        margin-top: 10px;
-        margin-bottom: 30px;
+        margin-top: 15px;
     }
-
-    /* 指示点样式 */
     .carousel-dot {
         cursor: pointer;
-        height: 12px;
-        width: 12px;
-        margin: 0 6px;
-        background-color: #e9ecef;
-        border: 2px solid #ced4da;
+        height: 10px;
+        width: 10px;
+        margin: 0 5px;
+        background-color: #e0e0e0;
         border-radius: 50%;
         display: inline-block;
         transition: background-color 0.3s ease;
     }
-
     .carousel-dot.active, .carousel-dot:hover {
-        background-color: #adb5bd;
+        background-color: #fdba74;
     }
-
-    /* 淡入动画 */
-    @keyframes fadeEffect {
-        from { opacity: 0.4; }
-        to { opacity: 1; }
+    .carousel-slide {
+        display: none;
+        animation: fade 0.5s;
+    }
+    @keyframes fade {
+        from {opacity: .4} 
+        to {opacity: 1}
     }
 </style>
+
+<script>
+    window.carouselState = window.carouselState || {};
+
+    function getCarouselState(carouselId) {
+        if (typeof window.carouselState[carouselId] === 'undefined') {
+            window.carouselState[carouselId] = 1;
+        }
+        return window.carouselState[carouselId];
+    }
+
+    function changeSlide(n, carouselId) {
+        let currentIndex = getCarouselState(carouselId);
+        showSlide(currentIndex + n, carouselId);
+    }
+
+    function setSlide(n, carouselId) {
+        showSlide(n, carouselId);
+    }
+
+    function showSlide(n, carouselId) {
+        const container = document.getElementById(carouselId);
+        if (!container) return;
+
+        const slides = container.getElementsByClassName("carousel-slide");
+        const dots = container.getElementsByClassName("carousel-dot");
+        
+        if (slides.length === 0) return;
+
+        let targetIndex = n;
+        if (targetIndex > slides.length) { targetIndex = 1; }
+        if (targetIndex < 1) { targetIndex = slides.length; }
+        
+        window.carouselState[carouselId] = targetIndex;
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        
+        slides[targetIndex - 1].style.display = "block";
+        if (dots.length > 0) {
+            dots[targetIndex - 1].className += " active";
+        }
+    }
+</script>
 
 
 <section class="hero">
@@ -162,27 +175,22 @@
               Haoyu Cao<sup>2</sup>,</span>
             <span class="author-block">
               Xing Sun<sup>2</sup>,</span>
+            <br>
             <span class="author-block">
               Caifeng Shan<sup>1</sup>,</span>
             <span class="author-block">
               Ran He<sup>3</sup>,</span>
             <span class="author-block">
-              Chaoyou Fu<sup>1, †</sup>,</span>
+              Chaoyou Fu<sup>1, †</sup></span>
           </div>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Nanjing University,</span>
             <span class="author-block"><sup>2</sup>Tencent Youtu Lab,</span>
-            <span class="author-block"><sup>3</sup>CASIA,</span>
+            <span class="author-block"><sup>3</sup>CASIA</span>
+            <br>
             <span class="author-block"><sup>†</sup>Corresponding author</span>
           </div>
-
-          <!-- <div class="is-size-4 publication-authors">
-            <p>
-                We propose Omni-Diffusion, the first any-to-any multimodal language model <br />
-                built purely on mask-based discrete diffusion models.
-            </p>
-            </div> -->
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -190,8 +198,6 @@
               <span class="link-block">
                 <a href="https://omni-diffusion.github.io/"
                    class="external-link button is-normal is-rounded is-dark">
-                <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
-                   class="external-link button is-normal is-rounded is-dark"> -->
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
@@ -220,13 +226,6 @@
                 </a>
             </span>
 
-            <br><br>
-
-              <p style="text-align: center; margin-top: 20px; font-size: 24px;">
-                <strong>TL;DR:</strong> <span style="color: #000000;">We introduce <strong>Omni-Diffusion</strong>, the first any-to-any multimodal language model built entirely on mask-based discrete diffusion models.
-                </span>
-            </p>
-
             </div>
           </div>
 
@@ -236,417 +235,6 @@
   </div>
 </section>
 
-<section class="hero is-small">
-    <div class="hero-body">
-        <div
-            class="container"
-            style="
-                display: flex;
-                justify-content: center;
-                gap: 1px;
-            "
-        >
-            <div class="item" style="text-align: center">
-                <img
-                    src="static/images/teaser.png"
-                    alt="Teaser"
-                    style="width: 80%; max-width: 1000px;"
-                />
-                <figcaption>
-                    <p style="text-align: center; color: #061E61;">
-                        <b>Figure 1:</b> Overview of Omni-Diffusion.
-                    </p>
-                </figcaption>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container is-max-desktop">
-
-        <div class="columns is-centered has-text-centered">
-            <h2 class="title is-2">Examples</h2>
-            <br>
-        </div>
-
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                
-                <br/>
-                <!-- ================= Example-1 ================= -->
-                <h3 class="title is-4">• Example-1: Speech+Image → Speech</h3>
-                <div class="content has-text-justified" id="demo-carousel-1">
-                    
-                    <div class="carousel-container">
-                        <button class="carousel-btn" onclick="changeSlide(-1, 'demo-carousel-1')">&#10094;</button>
-
-                        <div class="carousel-content-wrapper wrapper svelte-nab2ao"
-                            style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-                            <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                                <!-- 第 1 个幻灯片 (加上 style="display: block;" 默认显示，防止空框) -->
-                                <div class="carousel-slide" style="display: block;">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo2/svqa_2.wav"></audio></p>
-                                                <img style="display: inline-block;width: 50%;max-height: 400px;" src="./static/images/demo2/svqa_2.png">
-                                                <p>(Text Transcription: What color is the bench?)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo2/svqa_ans_2.wav"></audio></p>
-                                            <p>(Text Transcription: The bench is made of wood with a reddish-brown finish. It has horizontal slats, and the appearance to be old.)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 第 2 个幻灯片 -->
-                                <div class="carousel-slide">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo1/svqa_1.wav"></audio></p>
-                                                <img style="display: inline-block;width: 30%;height: 40%;max-height: 400px;" src="./static/images/demo1/svqa_1.jpg">
-                                                <p>(Text Transcription: What game is this?)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo1/svqa_1_ans.wav"></audio></p>
-                                            <p>(Text Transcription: Tennis. The players are holding tennis rackets, and one of them is in motion, appearing to hit the ball.)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <button class="carousel-btn" onclick="changeSlide(1, 'demo-carousel-1')">&#10095;</button>
-                    </div>
-
-                    <div class="carousel-dots">
-                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-1')"></span>
-                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-1')"></span>
-                    </div>
-                </div>
-                <!-- 就近初始化 Example-1 -->
-                <script>if(typeof initCarousel === 'function') initCarousel('demo-carousel-1');</script>
-                <!--   End  Example-1-->
-
-
-                <br/>
-                <!-- ================= Example-2 ================= -->
-                <h3 class="title is-4">• Example-2: Speech → Image</h3>
-                <div class="content has-text-justified" id="demo-carousel-2">
-
-                    <div class="carousel-container">
-                        <button class="carousel-btn" onclick="changeSlide(-1, 'demo-carousel-2')">&#10094;</button>
-
-                        <div class="carousel-content-wrapper wrapper svelte-nab2ao"
-                            style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-                            <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                                <!-- 第 1 个幻灯片 (加上 style="display: block;" 默认显示) -->
-                                <div class="carousel-slide" style="display: block;">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo4/s2i_0.wav"></audio></p>
-                                                <p>(Text Transcription: Generate an image based on the provided text description. A super realistic and hyper-detailed 8k image showing a fantasy night scene with an amazing beach under the full moon, lit by dramatic lighting.)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_0.png" >
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- 第 2 个幻灯片 -->
-                                <div class="carousel-slide">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo4/s2i_1.wav"></audio></p>
-                                                <p>(Text Transcription: Generate an image based on the provided text description. This image shows misty blue mountains and trees in a watercolor style, with a pacific northwest look.)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_1.png" >
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 第 3 个幻灯片 -->
-                                <div class="carousel-slide">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo4/s2i_2.wav"></audio></p>
-                                                <p>(Text Transcription: Generate an image based on the provided text description. A photorealistic picture of a Yellowstone grass and sagebrush meadow with a pine forest in the distance, surrounded by big mountains. Rays of sunshine break through the sky, creating a warm glow on the lively landscape. Distant rainclouds suggest the possibility of rainfall in the peaceful scene.)</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_2.png" >
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <button class="carousel-btn" onclick="changeSlide(1, 'demo-carousel-2')">&#10095;</button>
-                    </div>
-
-                    <div class="carousel-dots">
-                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-2')"></span>
-                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-2')"></span>
-                        <span class="carousel-dot" onclick="setSlide(3, 'demo-carousel-2')"></span>
-                    </div>
-                </div>
-                <!-- 就近初始化 Example-2 -->
-                <script>if(typeof initCarousel === 'function') initCarousel('demo-carousel-2');</script>
-                <!--  End  Example-2-->
-
-                <br/>
-                <!-- ================= Example-3 ================= -->
-                <h3 class="title is-4">• Example-3: Text+Image → Text</h3>
-                <div class="content has-text-justified" id="demo-carousel-3">
-
-                    <div class="carousel-container">
-                        <button class="carousel-btn" onclick="changeSlide(-1, 'demo-carousel-3')">&#10094;</button>
-
-                        <div class="carousel-content-wrapper wrapper svelte-nab2ao"
-                            style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-                            <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                                <!-- 第 1 个幻灯片 -->
-                                <div class="carousel-slide" style="display: block;">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p>Is the glass of orange juice half empty or half full?
-                                                <br/><br/>
-                                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_1.png" >
-                                                </p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p>The glass of orange juice is half full. The liquid level is at about two-thirds of the glass, leaving the other one-third empty. Since the question asks is it half empty or half full, the glass is half full.
-                                                </p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- 第 2 个幻灯片 -->
-                                <div class="carousel-slide">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p>Is this taken at a zoo?
-                                                <br/><br/>
-                                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_0.jpg" >
-                                                </p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <p>No, it is taken at a park. </p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="carousel-btn" onclick="changeSlide(1, 'demo-carousel-3')">&#10095;</button>
-                    </div>
-
-                    <div class="carousel-dots">
-                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-3')"></span>
-                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-3')"></span>
-                    </div>
-                </div>
-                <!-- 就近初始化 Example-3 -->
-                <script>if(typeof initCarousel === 'function') initCarousel('demo-carousel-3');</script>
-                <!--  End  Example-3-->
-
-                <br>
-                <!-- ================= Example-4 ================= -->
-                <h3 class="title is-4">• Example-4: Text → Image</h3>
-                <div class="content has-text-justified" id="demo-carousel-4">
-
-                    <div class="carousel-container">
-                        <button class="carousel-btn" onclick="changeSlide(-1, 'demo-carousel-4')">&#10094;</button>
-
-                        <div class="carousel-content-wrapper wrapper svelte-nab2ao"
-                            style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-                            <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                                <!-- 第 1 个幻灯片 (加上 style="display: block;" 默认显示) -->
-                                <div class="carousel-slide" style="display: block;">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p>Generate an image based on the provided text description.</p>
-                                                <p>The image shows a landscape background with double exposure glasses of wine, displaying a hyperealistic and detailed view of the subject.</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_0.png" >
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- 第 2 个幻灯片 -->
-                                <div class="carousel-slide">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p>Generate an image based on the provided text description.</p>
-                                                <p>A hyper-realistic, ultra-detailed picture of a Christian country church lit by a bright, snowy atmosphere.</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_1.png" >
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 第 3 个幻灯片 -->
-                                <div class="carousel-slide">
-                                    <div class="message-row user-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                        </div>
-                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                                <p>Generate an image based on the provided text description.</p>
-                                                <p>An image of America's mountains mixed with a grand royal male eagle in double exposure, with dripping red and blue colors.</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="message-row bot-row svelte-1uvwjgr">
-                                        <div class="avatar-container svelte-1uvwjgr">
-                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                            <span class="md svelte-9tftx4 chatbot">
-                                            <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_2.png" >
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <button class="carousel-btn" onclick="changeSlide(1, 'demo-carousel-4')">&#10095;</button>
-                    </div>
-
-                    <div class="carousel-dots">
-                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-4')"></span>
-                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-4')"></span>
-                        <span class="carousel-dot" onclick="setSlide(3, 'demo-carousel-4')"></span>
-                    </div>
-                </div>
-                <!-- 就近初始化 Example-4 -->
-                <script>if(typeof initCarousel === 'function') initCarousel('demo-carousel-4');</script>
-                <!--  End  Example-4-->
-                </div>
-                <br/>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="section">
   <div class="container" style="margin-bottom: 2vh;">
@@ -676,6 +264,19 @@
             </div>
             <br/>
 
+            <div class="item" style="text-align: center">
+                <img
+                    src="static/images/teaser.png"
+                    alt="Teaser"
+                    style="width: 95%; max-width: 1000px;"
+                />
+                <figcaption>
+                    <p style="text-align: center;">
+                        <b>Figure 1:</b> Overview of Omni-Diffusion.
+                    </p>
+                </figcaption>
+            </div>
+
         </div>
       </div>
     </div>
@@ -685,63 +286,380 @@
 
 
 <section class="section">
-  <div class="container" style="margin-bottom: 2vh;">
-    <!-- Methodology. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Methodology</h2>
-            <br/>
-            <h3 style="text-align: left;" class="title is-4">1. Training</h3>
-            <div class="columns is-centered">
+    <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-2">Examples</h2>
+            <br>
+        </div>
+
+        <div class="columns is-centered">
             <div class="column is-full-width">
-                <div class="content has-text-justified">
-                        <!-- <p>
-                            Omni-Diffusion is built upon a mask-based discrete diffusion language model and is equipped with distinct tokenizers for data of various modalities.
-                        </p> -->
-                        <p>
-                        <ul>
-                            <li>
-                                <b>Three-Stage Progressive Training Pipeline.</b>
-                                We propose a <strong>three-stage training pipeline</strong> to progressively expand the set of modalities and tasks throughout the training process. This approach ensures stability when training a unified model on data distributions with distinct characteristics.
-                                To further improve the model’s ability for visual interaction via spoken instruction, we construct a <strong>Speech-Driven Visual Interaction</strong> (SDVI) dataset that primarily includes spoken visual question answering and speech-to-image generation data.
+                
+                <br/>
+                <!-- ================= Example-1 ================= -->
+                <h3 class="title is-4">• Example-1: Text → Text+Image+Audio</h3>
+                <!-- #fdba74 -->
+                <div class="content has-text-justified" id="demo-carousel-1">
+                    
+                    <div class="carousel-container" style="position: relative; width: 100%; padding: 0 !important; margin: 0 !important;">
+                        
+                        <button class="carousel-btn" style="position: absolute; left: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(-1, 'demo-carousel-1')">&#10094;</button>
 
-                            </li>
-                                
-                            <li>
-                                <b>Attenuated Tail-Pad Masking.</b>
-                                To facilitate variable-length generation, we propose an <strong>attenuated tail-pad masking</strong> strategy. During training, we append a random number of pad tokens to the end of each data sample. The mask ratio of pad tokens is specifically reduced by a pre-defined scaling factor to mitigate overfitting and improve generation quality
-                            </li>
-                        </ul>
-                        </p>
-                        <br>
+                        <div class="wrapper svelte-nab2ao" style="width: 100%; margin: 0 !important; box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #fdba74;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+                            
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide" style="display: block;">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo2/svqa_2.wav"></audio></p>
+                                                <img style="display: inline-block;width: 40%;max-height: 400px;" src="./static/images/demo2/svqa_2.png">
+                                                <p>(Text Transcription: What color is the bench?)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo2/svqa_ans_2.wav"></audio></p>
+                                              <p>(Text Transcription: The bench is made of wood with a reddish-brown finish. It has horizontal slats, and the appearance to be old.)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="carousel-slide">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo1/svqa_1.wav"></audio></p>
+                                                <img style="display: inline-block;width: 20%;height: 10%;max-height: 400px;" src="./static/images/demo1/svqa_1.jpg">
+                                                <p>(Text Transcription: What game is this?)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo1/svqa_1_ans.wav"></audio></p>
+                                              <p>(Text Transcription: Tennis. The players are holding tennis rackets, and one of them is in motion, appearing to hit the ball.)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button class="carousel-btn" style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(1, 'demo-carousel-1')">&#10095;</button>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-1')"></span>
+                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-1')"></span>
+                    </div>
                 </div>
-            </div>
-            </div>
+                <!-- ================= End Example-1 ================= -->
 
-            <h3 style="text-align: left;" class="title is-4">2. Inference</h3>
-            <div class="columns is-centered">
-            <div class="column is-full-width">
-                <div class="content has-text-justified">
-                        <p>
-                        <ul>
-                            <li>
-                                <b>Visual Generation Quality Improvement.</b>
-                                The diffusion model tends to decode mask tokens from the beginning and the end of the sequence towards the center, which leads to identical patterns appearing in the top and bottom regions of the generated image. To address this issue, we propose the <strong>position penalty strategy</strong> to scale down the logits of the last several tokens by a fixed factor. This strategy discourages the model from decoding the beginning and end of the sequence simultaneously, therefore reducing repetitive patterns and improving visual quality. 
-                            </li>
-                            <li>
-                                <b>Speech Generation Quality Improvement.</b>
-                                We propose a <strong>special token pre-infilling</strong> strategy that replaces the token at the first quarter of the initial sequence with a special token [begin-of-speech]. This method guides the model to attend to text content when generating speech response, thereby improving the logic and coherence of the synthesized speech. 
-                            </li>
-                        </ul>
-                        </p>
-                        <br>
+
+                <!-- ================= Example-2 ================= -->
+                <h3 class="title is-4">• Example-2: Speech → Image</h3>
+                <div class="content has-text-justified" id="demo-carousel-2">
+                    
+                    <div class="carousel-container" style="position: relative; width: 100%; padding: 0 !important; margin: 0 !important;">
+                        <button class="carousel-btn" style="position: absolute; left: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(-1, 'demo-carousel-2')">&#10094;</button>
+
+                        <div class="wrapper svelte-nab2ao" style="width: 100%; margin: 0 !important; box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #fdba74;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+                            
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide" style="display: block;">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo4/s2i_0.wav"></audio></p>
+                                                <p>(Text Transcription: Generate an image based on the provided text description. A super realistic and hyper-detailed 8k image showing a fantasy night scene with an amazing beach under the full moon, lit by dramatic lighting.)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_0.png" >
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo4/s2i_1.wav"></audio></p>
+                                                <p>(Text Transcription: Generate an image based on the provided text description. This image shows misty blue mountains and trees in a watercolor style, with a pacific northwest look.)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_1.png" >
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p><audio playsinline="" controls=""><source type="audio/wav" src="./static/images/demo4/s2i_2.wav"></audio></p>
+                                                <p>(Text Transcription: Generate an image based on the provided text description. A photorealistic picture of a Yellowstone grass and sagebrush meadow with a pine forest in the distance, surrounded by big mountains. Rays of sunshine break through the sky, creating a warm glow on the lively landscape. Distant rainclouds suggest the possibility of rainfall in the peaceful scene.)</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_2.png" >
+                                            </span>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button class="carousel-btn" style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(1, 'demo-carousel-2')">&#10095;</button>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-2')"></span>
+                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-2')"></span>
+                        <span class="carousel-dot" onclick="setSlide(3, 'demo-carousel-2')"></span>
+                    </div>
                 </div>
-            </div> 
+                <!-- ================= End Example-2 ================= -->
+
+
+                <!-- ================= Example-3 ================= -->
+                <h3 class="title is-4">• Example-3: Text+Image → Text</h3>
+                <div class="content has-text-justified" id="demo-carousel-3">
+                    
+                    <div class="carousel-container" style="position: relative; width: 100%; padding: 0 !important; margin: 0 !important;">
+                        <button class="carousel-btn" style="position: absolute; left: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(-1, 'demo-carousel-3')">&#10094;</button>
+
+                        <div class="wrapper svelte-nab2ao" style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+                            
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide" style="display: block;">
+                                <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p>Is the glass of orange juice half empty or half full?<br/><br/>
+                                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_1.png" ></p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <p>The glass of orange juice is half full. The liquid level is at about two-thirds of the glass, leaving the other one-third empty. Since the question asks is it half empty or half full, the glass is half full.</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide">
+                                <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                <div class="avatar-container svelte-1uvwjgr">
+                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                </div>
+                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                    <span class="md svelte-9tftx4 chatbot" style="width: 100%;">
+                                        <p>Is this taken at a zoo?<br/><br/>
+                                        <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_0.jpg" ></p>
+                                    </span>
+                                </div>
+                                    </div>
+
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                            <p>No, it is taken at a park.</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button class="carousel-btn" style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(1, 'demo-carousel-3')">&#10095;</button>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-3')"></span>
+                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-3')"></span>
+                    </div>
+                </div>
+                <!-- ================= End Example-3 ================= -->
+
+
+                <!-- ================= Example-4 ================= -->
+                <h3 class="title is-4">• Example-4: Text → Image</h3>
+                <div class="content has-text-justified" id="demo-carousel-4">
+                    
+                    <div class="carousel-container" style="position: relative; width: 100%; padding: 0 !important; margin: 0 !important;">
+                        <button class="carousel-btn" style="position: absolute; left: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(-1, 'demo-carousel-4')">&#10094;</button>
+
+                        <div class="wrapper svelte-nab2ao" style="width: 100%; margin: 0 !important; box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #fdba74;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+                            
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide" style="display: block;">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p>Generate an image based on the provided text description.</p>
+                                                <p>The image shows a landscape background with double exposure glasses of wine, displaying a hyperealistic and detailed view of the subject.</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_0.png" >
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p>Generate an image based on the provided text description.</p>
+                                                <p>A hyper-realistic, ultra-detailed picture of a Christian country church lit by a bright, snowy atmosphere.</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_1.png" >
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide">
+                                <div class="message-wrap svelte-1uvwjgr">
+                                    <div class="message-row user-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                                        </div>
+                                        <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                                <p>Generate an image based on the provided text description.</p>
+                                                <p>An image of America's mountains mixed with a grand royal male eagle in double exposure, with dripping red and blue colors.</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="message-row bot-row svelte-1uvwjgr">
+                                        <div class="avatar-container svelte-1uvwjgr">
+                                            <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
+                                        <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
+                                            <span class="md svelte-9tftx4 chatbot">
+                                              <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_2.png" >
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button class="carousel-btn" style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%); z-index: 10;" onclick="changeSlide(1, 'demo-carousel-4')">&#10095;</button>
+                    </div>
+
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" onclick="setSlide(1, 'demo-carousel-4')"></span>
+                        <span class="carousel-dot" onclick="setSlide(2, 'demo-carousel-4')"></span>
+                        <span class="carousel-dot" onclick="setSlide(3, 'demo-carousel-4')"></span>
+                    </div>
+                </div>
+                <!-- ================= End Example-4 ================= -->
+
+                <br/>
             </div>
+        </div>
     </div>
-    <!--/ Abstract. -->
-</div>
 </section>
 
 
@@ -753,113 +671,39 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Performance</h2>
 
+        <h3 class="title is-4" style="text-align: left">• Visual Tasks</h3>
         <div class="content has-text-justified">
-            <p>
-                Omni-Diffusion demonstrates comparable performance on various task compared with model-specifical LLMs, and shows significant improvement over the any-to-any baseline models.
-            </p>
-        </div>
-
-        <div class="content has-text-justified">
-                <figcaption>
+                <!-- <figcaption>
                     <p style="text-align: center; color: #061E61;">
                         <b>Table 2:</b> Performance on visual-question-answering and text-to-image tasks.
                     </p>
-                </figcaption>
-                <img class="columns is-centered has-text-centered" src="./static/images/visual_task.png" alt="Teaser" width="80%"
+                </figcaption> -->
+                <img class="columns is-centered has-text-centered" src="./static/images/visual_task.png" alt="Teaser" width="90%"
                         style="margin:0 auto">
                 <br>
         </div>
         <br/>
 
+        <h3 class="title is-4" style="text-align: left">• Speech Tasks</h3>
         <div class="content has-text-justified">
-                <figcaption>
+                <!-- <figcaption>
                     <p style="text-align: center; color: #061E61;">
                         <b>Table 3:</b> Performance on ASR and TTS tasks.
                     </p>
-                </figcaption>
-                <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="40%"
+                </figcaption> -->
+                <img class="columns is-centered has-text-centered" src="./static/images/speech_task.png" alt="Teaser" width="90%"
                         style="margin:0 auto">
                 <br>
         </div>
-                    
-        <div class="content has-text-justified">
-                <figcaption>
-                    <p style="text-align: center; color: #061E61;">
-                        <b>Table 4:</b> Performance of image generation across various numbers of inference time steps.
-                    </p>
-                </figcaption>
-                <img class="columns is-centered has-text-centered" src="./static/images/fast_inference.png" alt="Teaser" width="40%"
-                        style="margin:0 auto">
-                <br>
-        </div>
-
-        
+                
         <br/>
         <br/>
-
         </div>
       </div>
     </div>
     <!--/ Exps. -->
 </div>
 </section>
-
-<script>
-    // 确保全局状态对象存在
-    window.carouselState = window.carouselState || {};
-
-    // 获取当前轮播图的状态，如果没记录过，默认就是第1页
-    function getCarouselState(carouselId) {
-        if (typeof window.carouselState[carouselId] === 'undefined') {
-            window.carouselState[carouselId] = 1;
-        }
-        return window.carouselState[carouselId];
-    }
-
-    // 点击左右按钮时触发
-    function changeSlide(n, carouselId) {
-        let currentIndex = getCarouselState(carouselId);
-        showSlide(currentIndex + n, carouselId);
-    }
-
-    // 点击底部圆点时触发
-    function setSlide(n, carouselId) {
-        showSlide(n, carouselId);
-    }
-
-    // 核心显示逻辑
-    function showSlide(n, carouselId) {
-        const container = document.getElementById(carouselId);
-        if (!container) return;
-
-        const slides = container.getElementsByClassName("carousel-slide");
-        const dots = container.getElementsByClassName("carousel-dot");
-        
-        if (slides.length === 0) return;
-
-        // 计算目标页码（处理循环滑动）
-        let targetIndex = n;
-        if (targetIndex > slides.length) { targetIndex = 1; }
-        if (targetIndex < 1) { targetIndex = slides.length; }
-        
-        // 更新全局状态
-        window.carouselState[carouselId] = targetIndex;
-        
-        // 1. 隐藏所有幻灯片，取消所有圆点高亮
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        
-        // 2. 显示目标幻灯片，高亮对应圆点
-        slides[targetIndex - 1].style.display = "block";
-        if (dots.length > 0) {
-            dots[targetIndex - 1].className += " active";
-        }
-    }
-</script>
 
 
 <section class="section" id="BibTeX">

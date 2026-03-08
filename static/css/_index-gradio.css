@@ -41,9 +41,7 @@ button.svelte-jdgjqu {
     background: var(--background-fill-secondary);
     padding: var(--spacing-xxl);
     padding-right: calc(var(--spacing-xxl) + var(--spacing-md));
-    /* width: calc(100% - var(--spacing-xxl)); */
-    width: 100%;
-    flex: 1;
+    width: calc(100% - var(--spacing-xxl));
     color: var(--body-text-color);
     font-size: var(--text-lg);
     line-height: var(--line-lg);
@@ -68,29 +66,24 @@ button.svelte-jdgjqu {
 .user.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
     border-color: var(--border-color-accent-subdued);
     background-color: var(--color-accent-soft)
-    /* border-color: var(--border-color-primary);
-    background: var(--background-fill-secondary) */
 }
 
 .message-row.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
     display: flex;
-    flex-direction: row;
-    width: 100%
+    flex-direction: row
 }
 
 @media (max-width: 480px) {
     .user-row.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
-        align-self: flex-end;
-        width: 100%
+        align-self: flex-end
     }
 
     .bot-row.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
-        align-self: flex-start;
-        width: 100%
+        align-self: flex-start
     }
 
     .message.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
-        width: 100%
+        width: auto
     }
 
     .bot.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
@@ -274,6 +267,5 @@ img.avatar-image.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
     flex-direction: column;
     align-items: start;
     width: 100%;
-    height: 100%;
-    margin: 0 auto;
+    height: 100%
 }
