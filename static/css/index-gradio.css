@@ -275,27 +275,3 @@ img.avatar-image.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
     height: 100%;
     margin: 0 auto;
 }
-
-/* 强制覆盖 .message-row 的宽度 */
-.message-row.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
-    width: 100% !important;
-    display: flex !important; /* 确保是 Flex 布局 */
-}
-
-/* 强制覆盖 .message 气泡的宽度行为 */
-.message.svelte-1uvwjgr.svelte-1uvwjgr.svelte-1uvwjgr {
-    /* 1. 禁用原有的固定宽度计算 */
-    width: auto !important;
-    
-    /* 2. 强制气泡占据所有剩余空间 */
-    flex: 1 !important;
-    
-    /* 3. 确保气泡不会被压缩到比内容还小 */
-    min-width: 0 !important; 
-}
-
-/* 额外修复：针对 User 侧的特殊处理 */
-/* 确保 User 气泡在左侧填满，头像在右侧 */
-.user-row.svelte-1uvwjgr {
-    justify-content: flex-end !important; /* 虽然 flex:1 会覆盖这个，但加个保险 */
-}

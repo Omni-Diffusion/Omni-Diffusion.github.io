@@ -38,7 +38,37 @@
     <script defer src="./static/js/fontawesome.all.min.js"></script>
     <script src="./static/js/bulma-carousel.min.js"></script>
     <script src="./static/js/bulma-slider.min.js"></script>
-    <!-- <script src="./static/js/index.js"></script> -->
+
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="stylesheet" href="./static/css/my-text-align.css">
+
+    <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+    <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/explorer-index.js"></script>
+
+
+    <style>
+        .no-sort {
+        cursor: default;
+        pointer-events: none;
+        background-image: none !important;
+        /* Remove the sort arrow */
+        }
+    </style>
 </head>
 <body>
 
@@ -182,6 +212,8 @@
     </div>
 </section>
 
+
+
 <section class="section">
     <div class="container is-max-desktop">
 
@@ -192,86 +224,71 @@
 
         <div class="columns is-centered">
             <div class="column is-full-width">
-                
-                <br/>
                 <!--  Example-1-->
                 <h3 class="title is-4">• Example-1: Speech+Image → Speech</h3>
-                <div class="content has-text-justified">
+                <div class="columns is-centered m-6" style="max-width: 800px; margin: 0 auto !important; ">
                     
-                    <div class="wrapper svelte-nab2ao"
-                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
+                    <div class="column is-full content">
+            
+                    <div class="box m-5 my-slide">
+            
+                        <div id="results-carousel" class="carousel results-carousel" style="overflow: hidden;">
 
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                        <div class="content ">
+                            <h3>User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left;"><audio playsinline="" controls="">
+                                                                <source type="audio/wav" src="./static/images/demo2/svqa_2.wav"></audio>
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        (Text Transcription: What color is the bench?)
+                                    </p>
+                                <div style="text-align: center;">
+                                    <img style="display: inline-block;width: 60%;height: 40%;max-height: 400px;" src="./static/images/demo2/svqa_2.png">
                                 </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p><audio playsinline="" controls="">
-                                            <source type="audio/wav" src="./static/images/demo2/svqa_2.wav"></audio>
-                                        </p>
-                                        <img style="display: inline-block;width: 100%;max-height: 400px;" src="./static/images/demo2/svqa_2.png">
-                                        <p>(Text Transcription: What color is the bench?)</p>
-                                    </span>
                                 </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: left;"><audio playsinline="" controls="">
+                                                            <source type="audio/wav" src="./static/images/demo2/svqa_ans_2.wav"></audio>
+                                                </p>
+                                <p style="text-align: left; font-size: 16px;">
+                                    (Text Transcription: The bench is made of wood with a reddish-brown finish. It has horizontal slats, and the appearance to be old.)
+                                </p>
                             </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <p><audio playsinline="" controls="">
-                                                  <source type="audio/wav" src="./static/images/demo2/svqa_ans_2.wav"></audio>
-                                      </p>
-                                      <p>(Text Transcription: The bench is made of wood with a reddish-brown finish. It has horizontal slats, and the appearance to be old.)</p>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p>
-                    </p>
-
-                    <div class="wrapper svelte-nab2ao"
-                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p><audio playsinline="" controls="">
-                                            <source type="audio/wav" src="./static/images/demo1/svqa_1.wav"></audio>
-                                        </p>
-                                        <img style="display: inline-block;width: 100%;max-height: 400px;" src="./static/images/demo1/svqa_1.jpg">
-                                        <p>(Text Transcription: What game is this?)</p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <p><audio playsinline="" controls="">
-                                                  <source type="audio/wav" src="./static/images/demo1/svqa_1_ans.wav"></audio>
-                                      </p>
-                                      <p>(Text Transcription: Tennis. The players are holding tennis rackets, and one of them is in motion, appearing to hit the ball.)</p>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
                         
-                    </div>
+                        </div>
 
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left;"><audio playsinline="" controls="">
+                                                                <source type="audio/wav" src="./static/images/demo1/svqa_1.wav"></audio>
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        (Text Transcription: What game is this?)
+                                    </p>
+                                <div style="text-align: center;">
+                                    <img style="display: inline-block;width: 30%;height: 20%;max-height: 400px;" src="./static/images/demo1/svqa_1.jpg">
+                                </div>
+                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: left;"><audio playsinline="" controls="">
+                                                            <source type="audio/wav" src="./static/images/demo1/svqa_1_ans.wav"></audio>
+                                                </p>
+                                <p style="text-align: left; font-size: 16px;">
+                                    (Text Transcription: Tennis. The players are holding tennis rackets, and one of them is in motion, appearing to hit the ball.)
+                                </p>
+                            </div>
+            
+                    </div>
+            
+                    </div>
+                    </div>
+                </div>
                 </div>
                 <!--   End  Example-1-->
 
@@ -279,94 +296,76 @@
                 <br/>
                 <!--   Example-2-->
                 <h3 class="title is-4">• Example-2: Speech → Image</h3>
-                <div class="content has-text-justified">
+                <div class="columns is-centered m-6" style="max-width: 800px; margin: 0 auto !important; ">
+                    
+                    <div class="column is-full content">
+                    <div class="box m-5 my-slide">
+                        <div id="results-carousel" class="carousel results-carousel" style="overflow: hidden;">
 
-                    <div class="wrapper svelte-nab2ao"
-                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left;"><audio playsinline="" controls="">
+                                                                <source type="audio/wav" src="./static/images/demo4/s2i_0.wav"></audio>
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        (Text Transcription: Generate an image based on the provided text description. A super realistic and hyper-detailed 8k image showing a fantasy night scene with an amazing beach under the full moon, lit by dramatic lighting.)
+                                    </p>
                                 </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p><audio playsinline="" controls="">
-                                            <source type="audio/wav" src="./static/images/demo4/s2i_0.wav"></audio>
-                                        </p>
-                                        <p>(Text Transcription: Generate an image based on the provided text description. A super realistic and hyper-detailed 8k image showing a fantasy night scene with an amazing beach under the full moon, lit by dramatic lighting.)</p>
-                                    </span>
-                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: center;">
+                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_0.png" >
+                            </p>
                             </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_0.png" >
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
                         
-                        <p></p>
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p><audio playsinline="" controls="">
-                                            <source type="audio/wav" src="./static/images/demo4/s2i_1.wav"></audio>
-                                        </p>
-                                        <p>(Text Transcription: Generate an image based on the provided text description. This image shows misty blue mountains and trees in a watercolor style, with a pacific northwest look.)</p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_1.png" >
-                                    </span>
-                                </div>
-                            </div>
                         </div>
 
-                        <p></p>
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left;"><audio playsinline="" controls="">
+                                                                <source type="audio/wav" src="./static/images/demo4/s2i_1.wav"></audio>
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        (Text Transcription: Generate an image based on the provided text description. This image shows misty blue mountains and trees in a watercolor style, with a pacific northwest look.)
+                                    </p>
                                 </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p><audio playsinline="" controls="">
-                                            <source type="audio/wav" src="./static/images/demo4/s2i_2.wav"></audio>
-                                        </p>
-                                        <p>(Text Transcription: Generate an image based on the provided text description. A photorealistic picture of a Yellowstone grass and sagebrush meadow with a pine forest in the distance, surrounded by big mountains. Rays of sunshine break through the sky, creating a warm glow on the lively landscape. Distant rainclouds suggest the possibility of rainfall in the peaceful scene.)</p>
-                                    </span>
-                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: center;">
+                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_1.png" >
+                            </p>
                             </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_2.png" >
-                                    </span>
-                                </div>
-                            </div>
+                        
                         </div>
+
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left;"><audio playsinline="" controls="">
+                                                                <source type="audio/wav" src="./static/images/demo4/s2i_2.wav"></audio>
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        (Text Transcription: Generate an image based on the provided text description. A photorealistic picture of a Yellowstone grass and sagebrush meadow with a pine forest in the distance, surrounded by big mountains. Rays of sunshine break through the sky, creating a warm glow on the lively landscape. Distant rainclouds suggest the possibility of rainfall in the peaceful scene.)
+                                    </p>
+                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: center;">
+                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo4/s2i_2.png" >
+                            </p>
+                            </div>
+                        
+                        </div>
+
+            
                     </div>
+                    </div>
+                </div>
                 </div>
                 <!--  End  Example-2-->
 
@@ -374,66 +373,57 @@
                 <br/>
                 <!--   Example-3-->
                 <h3 class="title is-4">• Example-3: Text+Image → Text</h3>
-                <div class="content has-text-justified">
+                <div class="columns is-centered m-6" style="max-width: 800px; margin: 0 auto !important; ">
+                    
+                    <div class="column is-full content">
+            
+                    <div class="box m-5 my-slide">
+            
+                        <div id="results-carousel" class="carousel results-carousel" style="overflow: hidden;">
 
-                    <div class="wrapper svelte-nab2ao"
-                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left; font-size: 16px;">
+                                        Is the glass of orange juice half empty or half full?
+                                    </p>
+                                <div style="text-align: center;">
+                                    <img style="display: inline-block;width: 30%;height: 30%;max-height: 400px;" src="./static/images/demo3/vqa_1.png" >
                                 </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p>Is the glass of orange juice half empty or half full?
-                                        <br/><br/>
-                                        <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_1.png" >
-                                        </p>
-                                    </span>
                                 </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                                <p style="text-align: left; font-size: 16px;">
+                                    The glass of orange juice is half full. The liquid level is at about two-thirds of the glass, leaving the other one-third empty. Since the question asks is it half empty or half full, the glass is half full.
+                                </p>
                             </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <p>The glass of orange juice is half full. The liquid level is at about two-thirds of the glass, leaving the other one-third empty. Since the question asks is it half empty or half full, the glass is half full.
-                                      </p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <p></p>
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p>Is this taken at a zoo?
-                                        <br/><br/>
-                                        <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo3/vqa_0.jpg" >
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <p>No, it is taken at a park. 
-                                      </p>
-                                    </span>
-                                </div>
-                            </div>
+                        
                         </div>
+
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left; font-size: 16px;">
+                                        Is this taken at a zoo?
+                                    </p>
+                                <div style="text-align: center;">
+                                    <img style="display: inline-block;width: 30%;height: 30%;max-height: 400px;" src="./static/images/demo3/vqa_0.jpg">
+                                </div>
+                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                                <p style="text-align: left; font-size: 16px;">
+                                    No, it is taken at a park. 
+                                </p>
+                            </div>
+            
                     </div>
+            
+                    </div>
+                    </div>
+                </div>
                 </div>
                 <!--  End  Example-3-->
 
@@ -441,88 +431,83 @@
                 <br/>
                 <!--   Example-4-->
                 <h3 class="title is-4">• Example-4: Text → Image</h3>
-                <div class="content has-text-justified">
+                <div class="columns is-centered m-6" style="max-width: 800px; margin: 0 auto !important; ">
+                    
+                    <div class="column is-full content">
+                    <div class="box m-5 my-slide">
+                        <div id="results-carousel" class="carousel results-carousel" style="overflow: hidden;">
 
-                    <div class="wrapper svelte-nab2ao"
-                         style="box-sizing: border-box;border-width: 2px;border-style: solid;border-color: #f66c0f;border-radius: 11px;padding: 25px;padding-top: 30px;padding-bottom: 30px;">
-
-                        <div class="message-wrap svelte-1uvwjgr" style="width: 100%;">
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left; font-size: 16px;">
+                                        Generate an image based on the provided text description.
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        The image shows a landscape background with double exposure glasses of wine, displaying a hyperealistic and detailed view of the subject.
+                                    </p>
+                                    
                                 </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p>Generate an image based on the provided text description.</p>
-                                        <p>The image shows a landscape background with double exposure glasses of wine, displaying a hyperealistic and detailed view of the subject.</p>
-                                    </span>
-                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: center;">
+                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_0.png" >
+                            </p>
                             </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_0.png" >
-                                    </span>
-                                </div>
-                            </div>
-
-                            <p></p>
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p>Generate an image based on the provided text description.</p>
-                                        <p>A hyper-realistic, ultra-detailed picture of a Christian country church lit by a bright, snowy atmosphere.</p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_1.png" >
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="message-row user-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/user.png" alt="avatar-user">
-                                </div>
-                                <div data-testid="user" class="message user svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                        <p>Generate an image based on the provided text description.</p>
-                                        <p>An image of America's mountains mixed with a grand royal male eagle in double exposure, with dripping red and blue colors.</p>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="message-row bot-row svelte-1uvwjgr">
-                                <div class="avatar-container svelte-1uvwjgr">
-                                    <img class="avatar-image svelte-1uvwjgr" src="./static/images/bot.png" alt="avatar-bot"></div>
-                                <div data-testid="bot" class="message bot svelte-1uvwjgr" dir="ltr" style="border-style: solid;">
-                                    <span class="md svelte-9tftx4 chatbot">
-                                      <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_2.png" >
-                                    </span>
-                                </div>
-                            </div>
-
+                        
                         </div>
+
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left; font-size: 16px;">
+                                        Generate an image based on the provided text description.
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        A hyper-realistic, ultra-detailed picture of a Christian country church lit by a bright, snowy atmosphere.
+                                    </p>
+                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: center;">
+                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_1.png" >
+                            </p>
+                            </div>
+                        
+                        </div>
+
+                        <div class="content ">
+                            <h3 class="no-content-styles">User: </h3>
+                                <div class="input-box">
+                                    <p style="text-align: left; font-size: 16px;">
+                                        Generate an image based on the provided text description.
+                                    </p>
+                                    <p style="text-align: left; font-size: 16px;">
+                                        An image of America's mountains mixed with a grand royal male eagle in double exposure, with dripping red and blue colors.
+                                    </p>
+                                </div>
+                            <hr>
+                            <h3 style="margin-top: 30px;">Omni-Diffusion:</h3>
+                            <div class="output-box">
+                            <p style="text-align: center;">
+                                <img style="display: inline-block;width: 250px;max-height: 400px;" src="./static/images/demo5/t2i_2.png" >
+                            </p>
+                            </div>
+                        
+                        </div>
+
+            
                     </div>
+                    </div>
+                </div>
                 </div>
                 <!--  End  Example-4-->
 
                 </div>
                 <br/>
-            </div>
+                </div>
         </div>
     </div>
 </section>
@@ -671,12 +656,6 @@
                         style="margin:0 auto">
                 <br>
         </div>
-
-        
-        <br/>
-        <br/>
-
-        </div>
       </div>
     </div>
     <!--/ Exps. -->
@@ -690,6 +669,88 @@
         <h2 class="title">BibTeX</h2>
     </div>
 </section>
+
+
+<section class="section">
+    <div class="container">
+  
+      <h2 class="title is-3 publication-subtitle" style="margin-top: -90px; margin-bottom: 30px; text-align: center;">Multimodal Foundation Capabilities</h2>
+  
+    </div>
+  </section>
+
+<style>
+	hr {
+	    border: 3px; /* 移除默认边框 */
+	    height: 2px; /* 设置高度 */
+		width: 70%;
+	    background: grey; /* 设置颜色 */
+		margin: 0 auto;
+	    /* 其他样式 */
+	  }
+	.content h3{
+		font-size: 100%;
+		font-weight: 400;
+		font-family: 'Söhne', sans-serif;
+		line-height: 1.5;
+		color: black;
+		text-align: left;
+		
+	} 
+</style>
+
+<style> 
+
+  .input-box,
+  .output-box {
+  
+    background-color: #ffffff;
+    border-radius: 0px;
+    padding: 14px;
+    /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
+    margin-bottom: 20px;
+  }
+
+  .input-box p,
+  .output-box p {
+    margin: 0;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+    /* font-family: 'Söhne', sans-serif; */
+    color: black;
+    font-size: 1.1em;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .nav-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .nav-button {
+
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    outline: none;
+  }
+
+  .nav-button:focus {
+    outline: none;
+  }
+</style>
 
 
 <footer class="footer">
